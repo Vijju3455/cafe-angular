@@ -1,0 +1,18 @@
+<app-header></app-header>
+
+<main class="app-main">
+  <div class="theme-toggle">
+    <button type="button" class="theme-btn" (click)="toggleTheme()" aria-label="Toggle dark/light mode">
+      <span aria-hidden="true">🌙</span> / <span aria-hidden="true">☀️</span>
+    </button>
+  </div>
+  <router-outlet />
+</main>
+
+
+<app-footer></app-footer>
+
+<app-ai-chatbot></app-ai-chatbot>
+<app-ai-voice></app-ai-voice>
+
+

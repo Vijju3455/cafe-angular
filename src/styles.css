@@ -1,0 +1,57 @@
+/* You can add global styles to this file, and also import other style files */
+:root{
+  --bg:#ffffff;
+  --text:#111;
+  --muted:#666;
+  --card:#ffffff;
+  --card-border: rgba(0,0,0,.06);
+  --link:#1b1b1b;
+  --header-bg: rgba(255,255,255,.82);
+  --footer-bg: rgba(255,255,255,.82);
+
+}
+
+:root[data-theme="dark"]{
+  --bg:#0b0f14;
+  --text:#f2f4f7;
+  --muted:#a5adb8;
+  --card:#0f151d;
+  --card-border: rgba(255,255,255,.10);
+  --link:#e8edf2;
+  --header-bg: rgba(10,14,20,.78);
+  --footer-bg:#070b10;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  transition: background .3s ease,color .3s ease;
+}
+
+.theme-btn{
+  border:1px solid rgba(0,0,0,.10);
+  background:rgba(255,255,255,.82);
+  color:var(--link);
+  border-radius:12px;
+  padding:10px 12px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+:root[data-theme="dark"] .theme-btn{
+  background:rgba(10,14,20,.65);
+  border-color:rgba(255,255,255,.10);
+  color:var(--link);
+}
+
+.card,
+.field,
+.cart-drawer,
+input,
+select,
+textarea{
+  background:var(--card);
+  color:var(--text);
+  border-color:var(--card-border);
+}

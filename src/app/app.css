@@ -1,0 +1,40 @@
+
+
+.app-main{
+  min-height: calc(100vh - 68px - 90px);
+  color: var(--text);
+  background: linear-gradient(180deg, rgba(255,179,0,.05), transparent 20%), var(--bg);
+}
+
+.theme-toggle{
+  position: fixed;
+  top: 78px;
+  right: 14px;
+  z-index: 80;
+}
+
+.theme-btn{
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.82);
+  color: var(--link);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0,0,0,.06);
+}
+
+:root[data-theme="dark"] .theme-btn{
+  background: rgba(10,14,20,.65);
+  border-color: rgba(255,255,255,.10);
+  color: var(--link);
+}
+
+/* Keep global focus visibility */
+:focus-visible{
+  outline: 3px solid rgba(255,179,0,.55);
+  outline-offset: 2px;
+}
+
+
+
