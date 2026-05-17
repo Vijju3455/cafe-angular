@@ -75,3 +75,4 @@ dist/
 .idea/
 *.log
 .env
+.vercel
