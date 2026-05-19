@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section class="about-page">
+<section class="about-page reveal">
     <img class="about-bg" src="assets/hero/12.jpg" alt="Café interior" loading="lazy" />
     <div class="about-overlay" aria-hidden="true"></div>
 

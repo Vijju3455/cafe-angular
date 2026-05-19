@@ -15,10 +15,10 @@ import { CommonModule } from '@angular/common';
       <!-- OVERLAY -->
       <div class="overlay"></div>
 
-      <div class="content container">
+<div class="content container">
 
         <!-- HERO -->
-        <section class="hero">
+        <section class="hero reveal hero--in">
           <p class="kicker">Welcome to Café Aurora</p>
 
           <h1>Fresh Brews. Cozy Corners. Endless Conversations.</h1>

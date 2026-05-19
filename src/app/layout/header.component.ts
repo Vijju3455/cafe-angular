@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -9,21 +10,26 @@ import { RouterModule } from '@angular/router';
   template: `
     <header class="header">
       <div class="container header__inner">
-        <a class="brand" routerLink="/home">
+        <a class="brand" href="#home" (click)="go('home');">
+
           <span class="brand__mark">☕</span>
           <span class="brand__name">Café Aurora</span>
         </a>
 
         <nav class="nav" aria-label="Main navigation">
-          <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-          <a routerLink="/about" routerLinkActive="active">About</a>
-          <a routerLink="/menu" routerLinkActive="active">Menu</a>
-          <a routerLink="/gallery" routerLinkActive="active">Gallery</a>
-          <a routerLink="/reservation" routerLinkActive="active">Reservations</a>
-          <a routerLink="/contact" routerLinkActive="active">Contact</a>
-          <a routerLink="/reviews" routerLinkActive="active">Reviews</a>
-        </nav>
+          <a href="#home" [class.active]="activeSection() === 'home'" (click)="go('home');">Home</a>
+          <a href="#about" [class.active]="activeSection() === 'about'" (click)="go('about');">About</a>
+          <a href="#menu" [class.active]="activeSection() === 'menu'" (click)="go('menu');">Menu</a>
 
+          <a href="#gallery" [class.active]="activeSection() === 'gallery'" (click)="go('gallery');">Gallery</a>
+
+
+          <a href="#reservation" [class.active]="activeSection() === 'reservation'" (click)="go('reservation');">Reservations</a>
+
+          <a href="#contact" [class.active]="activeSection() === 'contact'" (click)="go('contact');">Contact</a>
+
+          <a href="#reviews" [class.active]="activeSection() === 'reviews'" (click)="go('reviews');">Reviews</a>
+</nav>
         <button class="nav-toggle" type="button" aria-label="Open navigation" (click)="toggle()">
           ☰
         </button>
@@ -31,13 +37,20 @@ import { RouterModule } from '@angular/router';
 
       <div class="mobile" [class.mobile--open]="open">
         <div class="container mobile__inner">
-          <a routerLink="/home" (click)="toggle();">Home</a>
-          <a routerLink="/about" (click)="toggle();">About</a>
-          <a routerLink="/menu" (click)="toggle();">Menu</a>
-          <a routerLink="/gallery" (click)="toggle();">Gallery</a>
-          <a routerLink="/reservation" (click)="toggle();">Reservations</a>
-          <a routerLink="/contact" (click)="toggle();">Contact</a>
-          <a routerLink="/reviews" (click)="toggle();">Reviews</a>
+          <a href="#home" (click)="go('home'); toggle();">Home</a>
+
+          <a href="#about" (click)="go('about'); toggle();">About</a>
+
+          <a href="#menu" (click)="go('menu'); toggle();">Menu</a>
+
+          <a href="#gallery" (click)="go('gallery'); toggle();">Gallery</a>
+
+          <a href="#reservation" (click)="go('reservation'); toggle();">Reservations</a>
+
+          <a href="#contact" (click)="go('contact'); toggle();">Contact</a>
+
+          <a href="#reviews" (click)="go('reviews'); toggle();">Reviews</a>
+
         </div>
       </div>
     </header>
@@ -71,9 +84,59 @@ import { RouterModule } from '@angular/router';
 })
 export class HeaderComponent {
   protected open = false;
+  private ignoreObserver = false;
+
+  private router = inject(Router);
+  private activeSectionSig = signal<string>('home');
+
+  constructor() {
+    if (typeof window !== 'undefined') {
+      const ids = ['home', 'about', 'menu', 'gallery', 'reviews', 'reservation', 'contact'];
+      const els = ids
+        .map((id) => document.getElementById(id))
+        .filter((x): x is HTMLElement => !!x);
+
+      if (els.length) {
+        const obs = new IntersectionObserver(
+          (entries) => {
+            const visible = entries
+              .filter((e) => e.isIntersecting)
+              .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0));
+
+            const top = visible[0]?.target as HTMLElement | undefined;
+            if (top?.id) this.activeSectionSig.set(top.id);
+          },
+          { root: null, threshold: [0.2, 0.35, 0.5, 0.65] }
+        );
+
+        els.forEach((el) => obs.observe(el));
+      }
+    }
+
+    this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
+      this.open = false;
+    });
+  }
 
   toggle() {
     this.open = !this.open;
   }
+
+  protected activeSection(): string {
+    return this.activeSectionSig();
+  }
+go(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  this.ignoreObserver = true;          // stop observer temporarily
+  this.activeSectionSig.set(id);       // set clicked tab active
+
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  setTimeout(() => {
+    this.ignoreObserver = false;       // re-enable observer
+  }, 800);
+}
 }
 

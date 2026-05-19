@@ -15,7 +15,7 @@ const REVIEWS: Review[] = [
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section class="page-head">
+<section class="page-head reveal">
       <div class="container">
         <h1>Customer Reviews</h1>
         <p class="sub">Real voices from MY Cafe guests.</p>

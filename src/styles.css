@@ -22,12 +22,106 @@
   --footer-bg:#070b10;
 }
 
+html{scroll-behavior:smooth;}
+
+/* ---------- Premium thin cafe scrollbar ---------- */
+*{
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,179,0,.45) rgba(0,0,0,0);
+}
+
+*::-webkit-scrollbar{
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track{
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb{
+  background: rgba(255,179,0,.35);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  border-radius: 999px;
+  transition: background .22s ease, transform .22s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover{
+  background: rgba(255,179,0,.55);
+  transform: translateY(-1px);
+}
+
+:root[data-theme="dark"] *{
+  scrollbar-color: rgba(255,179,0,.42) rgba(0,0,0,0);
+}
+
+:root[data-theme="dark"] *::-webkit-scrollbar-thumb{
+  background: rgba(255,179,0,.28);
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+:root[data-theme="dark"] *::-webkit-scrollbar-thumb:hover{
+  background: rgba(255,179,0,.50);
+}
+
+/* ---------- Global reveal utilities (minimal premium) ---------- */
+.reveal,
+.reveal-up,
+.reveal-right,
+.reveal-left,
+.reveal-zoom,
+.reveal-stagger{
+  opacity: 1;
+  transform: translate3d(0, 14px, 0);
+  transition: opacity .9s ease, transform .9s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal--pending{
+  /* placeholder state */
+}
+
+.reveal--revealed{
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Modes */
+.reveal-up{ transform: translate3d(0, 14px, 0); }
+.reveal-right{ transform: translate3d(-14px, 0, 0); }
+.reveal-left{ transform: translate3d(14px, 0, 0); }
+.reveal-zoom{ transform: translate3d(0, 8px, 0) scale(.98); }
+
+/* Stagger: container uses delays via directive/class only; animation is still standard reveal */
+.reveal-stagger{
+  /* keep children responsive; parent still animates */
+}
+
+/* More nuanced easing */
+@media (prefers-reduced-motion: reduce){
+  .reveal,
+  .reveal-up,
+  .reveal-right,
+  .reveal-left,
+  .reveal-zoom,
+  .reveal-stagger{
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 body{
+
   margin:0;
   background:var(--bg);
   color:var(--text);
   transition: background .3s ease,color .3s ease;
 }
+
 
 .theme-btn{
   border:1px solid rgba(0,0,0,.10);

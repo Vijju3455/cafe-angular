@@ -15,7 +15,7 @@ const IMAGES = [
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section class="page-head">
+<section class="page-head reveal">
       <div class="container">
         <h1>Gallery</h1>
         <p class="sub">A peek inside Café Aurora.</p>

@@ -1,0 +1,17 @@
+{
+  "name": "Café Aurora",
+  "short_name": "Café",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffb300",
+  "theme_color": "#ffb300",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon",
+      "purpose": "any"
+    }
+  ]
+}
+

@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <section class="page-head">
+<section class="page-head reveal">
       <div class="container">
         <h1>Contact</h1>
         <p class="sub">Reach us anytime—questions, feedback, or catering requests.</p>

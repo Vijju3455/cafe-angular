@@ -15,7 +15,8 @@ type Reservation = {
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
-    <section class="page-head">
+<section class="page-head reveal">
+
       <div class="container">
         <h1>Table Reservation</h1>
         <p class="sub">Request a table—handled frontend-only.</p>

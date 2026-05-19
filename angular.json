@@ -29,17 +29,22 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-           "assets": [
-  {
-    "glob": "**/*",
-    "input": "src/assets",
-    "output": "assets"
-  }
-],
-            "styles": [
-              "src/styles.css"
-            ]
+
+            "assets": [
+              "src/favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
+              }
+            ],
+
+          "styles": [
+  "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+  "src/styles.css"
+]
           },
+
           "configurations": {
             "production": {
               "budgets": [
@@ -56,24 +61,30 @@
               ],
               "outputHashing": "all"
             },
+
             "development": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
             }
           },
+
           "defaultConfiguration": "production"
         },
+
         "serve": {
           "builder": "@angular/build:dev-server",
+
           "configurations": {
             "production": {
               "buildTarget": "cafe-angular:build:production"
             },
+
             "development": {
               "buildTarget": "cafe-angular:build:development"
             }
           },
+
           "defaultConfiguration": "development"
         }
       }
